@@ -180,7 +180,7 @@ const btnclear = document.querySelectorAll("button")[1]; // es el segundo botón
 // Cuando le den clic, ejecuta la función de limpiar
 btnclear.addEventListener("click", function(event) {
     event.preventDefault();
-    limpiarTodo(); // llama a la función que borra todo
+    clear(); // llama a la función que borra todo
 });
 
 ///////////////////////////////////////////////////////////////////////////
