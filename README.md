@@ -13,4 +13,4 @@
 - Se agrega como objetivo extra la funcion del boton eliminar todo, para eliminar los datos de la tabla y el total de los productos al igual que los datos guardados en el LocalStorage.
 
 
-* * Las notas de lo realizado estan dentro del codigo 
+*Las notas de lo realizado estan dentro del codigo* 
