@@ -175,10 +175,10 @@ contadorProductos.innerText = cont;
 //FUNCION DEL BOTON -LIMPIAR TODO-
 
 // Buscar el botón "Limpiar todo"
-const btnLimpiarTodo = document.querySelectorAll("button")[1]; // es el segundo botón
+const btnclear = document.querySelectorAll("button")[1]; // es el segundo botón
 
 // Cuando le den clic, ejecuta la función de limpiar
-btnLimpiarTodo.addEventListener("click", function(event) {
+btnclear.addEventListener("click", function(event) {
     event.preventDefault();
     limpiarTodo(); // llama a la función que borra todo
 });
@@ -186,12 +186,12 @@ btnLimpiarTodo.addEventListener("click", function(event) {
 ///////////////////////////////////////////////////////////////////////////
 
 // ejecutar la función de limpiar
-btnLimpiarTodo.addEventListener("click", function(event) {
+btnclear.addEventListener("click", function(event) {
     event.preventDefault();
  // llama a la función que borra todo
 });
 // Esta función borra todo
-function limpiarTodo() {
+function clear() {
     // Borra la tabla
     cuerpoTabla.innerHTML = "";
 
