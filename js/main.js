@@ -14,9 +14,11 @@ const precioTotal = document.getElementById ("precioTotal");
 
 //Numeracion de la primera columna de la tabla 
 let cont = 0;
+
 let costoTotal = 0;
 let totalEnProductos = 0;
 
+let datos = new Array (); // Almacena los elementos de la tabla 
 
 
 function validarCantidad(){
@@ -94,6 +96,19 @@ btnAgregar.addEventListener("click",function(event){
                    <td>${txtNumber.value}</td>
                    <td>${precio}</td>
                    </tr>`;
+
+        let elemento = {
+                        "cont" : cont,
+                        "nombre" : txtName.value,          //<-----Notacion de JSON 
+                        "cantidad" : txtNumber.value,
+                        "precio" : precio
+                        };
+        datos.push(elemento);
+
+        localStorage.setItem("datos", JSON.stringify(datos));
+        
+
+
     cuerpoTabla.insertAdjacentHTML("beforeend", row);
 //<------------ Visualizar el costo total de todos los productos ----------------
     costoTotal += precio * Number (txtNumber.value); 
@@ -105,14 +120,51 @@ btnAgregar.addEventListener("click",function(event){
 
 
     contadorProductos.innerText = cont;  // <----  visualiza la cantidad de productos dentro de la lista 
+    
+    let resumen ={
+                         "cont" : cont,
+                         "totalEnProductos" : totalEnProductos,  //<-----Notacion de JSON/ Pasa a despues de contadro de productos para visualizacion completa en localStorage
+                         "costoTotal" : costoTotal
+                     };
+        localStorage.setItem("resumen", JSON.stringify(resumen));
 
 
 
     txtName.value = "";
     txtNumber.value ="";
     txtName.focus();
+    } //if isValid
 
-} //if isValid
+}); //btnAgregar.addEventListener
 
+window.addEventListener("load", function(event){                            
+    event.preventDefault();
+    //mandamos a traer el array de dayos del localStore
+    if(this.localStorage.getItem("datos")!= null){
+        datos = JSON.parse(this.localStorage.getItem("datos"));
+}//datos != null
+ 
+// <----------Mostrar los datos guardados en la tabla (Realizacion de tabla)---
+    datos.forEach((d) => {
+        let row = `<tr>
+                   <td>${d.cont}</td>
+                   <td>${d.nombre}</td>
+                   <td>${d.cantidad}</td>
+                   <td>${d.precio}</td>
+                   </tr>`;
+    cuerpoTabla.insertAdjacentHTML("beforeend", row);
+    });
+   
+// mandamos a traer el objeto del resumen del localstore
+    if(this.localStorage.getItem("resumen")!= null){
+        let resumen = JSON.parse(this.localStorage.getItem("resumen"));         //<-----Mostrarar datos anteriores y sumar el nuevo
+        costoTotal = resumen.costoTotal;
+        cont = resumen.cont;
+}//resumen ! = null
 
-}); //btnAgregar
+precioTotal.innerText = "$" + costoTotal.toFixed (2);
+productosTotal.innerText = totalEnProductos;
+contadorProductos.innerText = cont; 
+
+}); //window.addEvenListener load
+
