@@ -1,14 +1,22 @@
-//SE RECUPERAN LOS ELEMENTOS QUE CONTIENEN LA INFORMACION INGRESADA...
-let txtName = document.getElementById("Name"); //nombre
-let txtNumber = document.getElementById("Number"); // cantidad
-let btnAgregar = document.getElementById("btnAgregar")
-let alertValidacionesTexto = document.getElementById("alertValidacionesTexto");
-let alertValidaciones = document.getElementById("alertValidaciones");
-let tablaListaCompras = document.getElementById ("tablaListaCompras");
+const txtName = document.getElementById("Name"); //nombre
+const txtNumber = document.getElementById("Number"); // cantidad
+const btnAgregar = document.getElementById("btnAgregar")
+const alertValidacionesTexto = document.getElementById("alertValidacionesTexto");
+const alertValidaciones = document.getElementById("alertValidaciones");
+const tablaListaCompras = document.getElementById ("tablaListaCompras");
 const cuerpoTabla= tablaListaCompras.getElementsByTagName("tbody").item(0);
+
+
+const contadorProductos = document.getElementById("contadorProductos");
+const productosTotal = document.getElementById ("productosTotal");
+const precioTotal = document.getElementById ("precioTotal");
+
 
 //Numeracion de la primera columna de la tabla 
 let cont = 0;
+let costoTotal = 0;
+let totalEnProductos = 0;
+
 
 
 function validarCantidad(){
@@ -86,9 +94,25 @@ btnAgregar.addEventListener("click",function(event){
                    <td>${txtNumber.value}</td>
                    <td>${precio}</td>
                    </tr>`;
-    cuerpoTabla.insertAdjacentHTML("beforeend", row); 
+    cuerpoTabla.insertAdjacentHTML("beforeend", row);
+//<------------ Visualizar el costo total de todos los productos ----------------
+    costoTotal += precio * Number (txtNumber.value); 
+    precioTotal.innerText = "$" + costoTotal.toFixed (2); //<---- Se coloca el (2) por los decimales que se utilizan
 
-    }
+//<------------  Visualizar el total de los productos en la lista ------------------
+     totalEnProductos += Number (txtNumber.value);
+     productosTotal.innerText = totalEnProductos;
+
+
+    contadorProductos.innerText = cont;  // <----  visualiza la cantidad de productos dentro de la lista 
+
+
+
+    txtName.value = "";
+    txtNumber.value ="";
+    txtName.focus();
+
+} //if isValid
 
 
 }); //btnAgregar
