@@ -5,7 +5,7 @@ const alertValidacionesTexto = document.getElementById("alertValidacionesTexto")
 const alertValidaciones = document.getElementById("alertValidaciones");
 const tablaListaCompras = document.getElementById ("tablaListaCompras");
 const cuerpoTabla= tablaListaCompras.getElementsByTagName("tbody").item(0);
-
+const btnLimpiarTodo  = document.getElementById("btnLimpiarTodo");
 
 const contadorProductos = document.getElementById("contadorProductos");
 const productosTotal = document.getElementById ("productosTotal");
@@ -19,6 +19,8 @@ let costoTotal = 0;
 let totalEnProductos = 0;
 
 let datos = new Array (); // Almacena los elementos de la tabla 
+
+
 
 
 function validarCantidad(){
@@ -46,6 +48,8 @@ function validarCantidad(){
 function getPrecio(){
     return Math.round(Math.random()*10000) / 100; //<---- Funcion para regresar el precio con dos decimales por eso se utilizo 4 numeros enteros (1000) que al dividir mostrara solo 2 decimales
 }// getPrecio
+
+
 
 
 //OREJA PARA EL BOTON DE AGREGAR...
@@ -166,5 +170,63 @@ precioTotal.innerText = "$" + costoTotal.toFixed (2);
 productosTotal.innerText = totalEnProductos;
 contadorProductos.innerText = cont; 
 
+
+
+//FUNCION DEL BOTON -LIMPIAR TODO-
+
+// Buscar el botón "Limpiar todo"
+const btnLimpiarTodo = document.querySelectorAll("button")[1]; // es el segundo botón
+
+// Cuando le den clic, ejecuta la función de limpiar
+btnLimpiarTodo.addEventListener("click", function(event) {
+    event.preventDefault();
+    limpiarTodo(); // llama a la función que borra todo
+});
+
+///////////////////////////////////////////////////////////////////////////
+
+// ejecutar la función de limpiar
+btnLimpiarTodo.addEventListener("click", function(event) {
+    event.preventDefault();
+ // llama a la función que borra todo
+});
+// Esta función borra todo
+function limpiarTodo() {
+    // Borra la tabla
+    cuerpoTabla.innerHTML = "";
+
+    // Pone en 0 los contadores
+    cont = 0;
+    totalEnProductos = 0;
+    costoTotal = 0;
+    datos = [];
+
+    // Borra del navegador los datos guardados
+    localStorage.removeItem("datos");
+    localStorage.removeItem("resumen");
+
+    // Limpia los cuadros donde escribes
+    txtName.value = "";
+    txtNumber.value = "";
+
+    // Pone en 0 los totales en pantalla
+    productosTotal.innerText = "0";
+    precioTotal.innerText = "$0.00";
+    contadorProductos.innerText = "0";
+
+    // Oculta mensajes de error (si había)
+    alertValidacionesTexto.innerHTML = "";
+    alertValidaciones.style.display = "none";
+
+    // Quita los bordes rojos si había error
+    txtName.style.border = "";
+    txtNumber.style.border = "";
+
+    // Pone el cursor en el campo de nombre para escribir de nuevo
+    txtName.focus();
+}
+
+
 }); //window.addEvenListener load
+
 
